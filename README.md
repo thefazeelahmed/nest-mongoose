@@ -1,1 +1,1 @@
-# ts-nest-mongoose
+# nest-mongoose

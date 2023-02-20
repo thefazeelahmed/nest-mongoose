@@ -11,8 +11,8 @@ export class UsersService {
   //   return 'This action adds a new user';
   // }
 
-  findAll(req, res) {
-    getAll(this.userModel, req, res, {});
+  findAll(query, res) {
+    getAll(this.userModel, query, res, {});
   }
 
   // findOne(id: number) {

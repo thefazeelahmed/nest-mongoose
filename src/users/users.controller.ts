@@ -6,6 +6,7 @@ import {
   Res,
   Req,
   Get,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 
@@ -20,7 +21,8 @@ export class UsersController {
   }
 
   @Get()
-  findAll(@Req() request: Request, @Res() response: Response) {
-    return this.usersService.findAll(request, response);
+  findAll(@Req() request: Request, @Res() response: Response, @Query() query) {
+    console.log(request);
+    return this.usersService.findAll(query, response);
   }
 }

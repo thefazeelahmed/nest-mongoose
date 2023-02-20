@@ -33,7 +33,7 @@ export const getOne = async (Model, id, popOptions, response) => {
   });
 };
 
-export const getAll = async (Model, req, res, options) => {
+export const getAll = async (Model, queryStrs, res, options) => {
   const filter = {
     isActive: true,
     isDeleted: false,
@@ -42,13 +42,13 @@ export const getAll = async (Model, req, res, options) => {
   const query = Model.find(filter);
   const countQuery = Model.find(filter);
 
-  const features = new APIFeatures(query, (req.query = {}))
+  const features = new APIFeatures(query, queryStrs)
     .filter()
     .sort()
     .limitFields()
     .paginate();
 
-  const countFeatures = new APIFeatures(countQuery, req.query).filter();
+  const countFeatures = new APIFeatures(countQuery, queryStrs).filter();
 
   if (options?.populate) query.populate(options.populate);
   const doc = await features.query;

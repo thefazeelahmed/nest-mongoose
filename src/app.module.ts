@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 
 import { ConfigModule } from '@nestjs/config';
 import { getEnvPath } from 'common/helper/env.helper';
+import { UsersModule } from './users/users.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
 @Module({
@@ -12,6 +14,12 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
       envFilePath,
       isGlobal: true,
     }),
+
+    MongooseModule.forRoot(
+      'mongodb+srv://irfazeel:nokia420@cluster0.mvtgqoo.mongodb.net/nest-boilerplate?retryWrites=true&w=majority',
+    ),
+
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

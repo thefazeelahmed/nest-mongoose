@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { deleteOne, getAll } from 'common/helper/handlerFactory';
+import { deleteOne, getAll, updateOne } from 'common/helper/handlerFactory';
 import { Model } from 'mongoose';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './entities/user.entity';
 
 @Injectable()
@@ -19,9 +20,9 @@ export class UsersService {
   //   return `This action returns a #${id} user`;
   // }
 
-  // update(id: number, updateUserDto: UpdateUserDto) {
-  //   return `This action updates a #${id} user`;
-  // }
+  update(id: string, updateUserDto: UpdateUserDto, res) {
+    updateOne(this.userModel, id, updateUserDto, res);
+  }
 
   async remove(id: string, response) {
     try {

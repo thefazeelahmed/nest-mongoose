@@ -1,7 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { deleteOne, getAll, updateOne } from 'common/helper/handlerFactory';
+import {
+  createOne,
+  deleteOne,
+  getAll,
+  updateOne,
+} from 'common/helper/handlerFactory';
 import { Model } from 'mongoose';
+import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './entities/user.entity';
 
@@ -22,6 +28,10 @@ export class UsersService {
 
   update(id: string, updateUserDto: UpdateUserDto, res) {
     updateOne(this.userModel, id, updateUserDto, res);
+  }
+
+  create(createUserDto: CreateUserDto, res) {
+    createOne(this.userModel, createUserDto, res);
   }
 
   async remove(id: string, response) {

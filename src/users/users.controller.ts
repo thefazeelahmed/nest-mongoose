@@ -9,7 +9,9 @@ import {
   Query,
   Patch,
   Body,
+  Post,
 } from '@nestjs/common';
+import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
 
@@ -26,6 +28,11 @@ export class UsersController {
   @Get()
   findAll(@Req() request: Request, @Res() response: Response, @Query() query) {
     return this.usersService.findAll(query, response);
+  }
+
+  @Post()
+  create(@Body() createUserDto: CreateUserDto, @Res() response: Response) {
+    return this.usersService.create(createUserDto, response);
   }
 
   @Patch(':id')

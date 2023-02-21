@@ -16,32 +16,6 @@ export const deleteOne = async (Model, id, response) => {
   });
 };
 
-export const updateOne = async (
-  Model,
-  id,
-  body,
-  res,
-  options = {
-    new: true,
-    runValidators: true,
-  },
-) => {
-  const doc = await Model.findByIdAndUpdate(id, body, options);
-
-  if (!doc) {
-    return res
-      .status(HttpStatus.NOT_FOUND)
-      .send(JSON.stringify('No document found with that ID'));
-  }
-
-  res.status(200).json({
-    status: 'success',
-    data: {
-      data: doc,
-    },
-  });
-};
-
 export const getOne = async (Model, id, popOptions, response) => {
   let query = Model.findById(id);
   if (popOptions) query = query.populate(popOptions);
@@ -85,6 +59,43 @@ export const getAll = async (Model, queryString, res, options) => {
     status: 'success',
     totalCount: docCount,
     results: doc.length,
+    data: {
+      data: doc,
+    },
+  });
+};
+
+export const createOne = async (Model, body, res) => {
+  const doc = await Model.create(body);
+
+  res.status(201).json({
+    status: 'success',
+    data: {
+      data: doc,
+    },
+  });
+};
+
+export const updateOne = async (
+  Model,
+  id,
+  body,
+  res,
+  options = {
+    new: true,
+    runValidators: true,
+  },
+) => {
+  const doc = await Model.findByIdAndUpdate(id, body, options);
+
+  if (!doc) {
+    return res
+      .status(HttpStatus.NOT_FOUND)
+      .send(JSON.stringify('No document found with that ID'));
+  }
+
+  res.status(200).json({
+    status: 'success',
     data: {
       data: doc,
     },
